@@ -1,0 +1,47 @@
+---
+- name: Deploy Airbyte, PostgreSQL, and Spark on Kubernetes using Helm
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Add Bitnami repository
+      command: helm repo add bitnami https://charts.bitnami.com/bitnami
+
+    - name: Update Helm repositories
+      command: helm repo update
+
+    - name: Install PostgreSQL
+      command: helm install postgresql bitnami/postgresql -f postgres-values.yaml
+
+    - name: Install Spark
+      command: helm install spark bitnami/spark -f spark-values.yaml
+
+    - name: Add Airbyte repository
+      command: helm repo add airbyte https://airbyte-helm-charts.storage.googleapis.com
+
+    - name: Install Airbyte
+      command: helm install airbyte airbyte/airbyte -f airbyte-values.yaml
+
+    - name: Wait for PostgreSQL to be ready
+      command: kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=postgresql --timeout=300s
+
+    - name: Port-forward PostgreSQL
+      async: 7200
+      poll: 0
+      command: kubectl port-forward svc/postgresql 5432:5432
+
+    - name: Wait for Spark master to be ready
+      command: kubectl wait --for=condition=ready pod -l app.kubernetes.io/component=master --timeout=300s
+
+    - name: Port-forward Spark master
+      async: 7200
+      poll: 0
+      command: kubectl port-forward svc/spark-master 4040:4040
+
+    - name: Wait for Airbyte to be ready
+      command: kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=airbyte --timeout=300s
+
+    - name: Port-forward Airbyte
+      async: 7200
+      poll: 0
+      command: kubectl port-forward svc/airbyte-webapp 8000:80

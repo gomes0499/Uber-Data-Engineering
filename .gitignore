@@ -1,0 +1,9 @@
+.DS_Store
+.terraform
+config
+terraform.tfstate
+.terraform.lock.hcl
+logs
+service-account
+7-Project-Agile-Development.pdf
+keys.sh

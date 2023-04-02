@@ -1,0 +1,19 @@
+-- models/ride_view.sql
+{{
+  config(
+    materialized='view'
+  )
+}}
+
+SELECT
+  DRIVER_NAME,
+  DROPOFF_LAT,
+  DROPOFF_LNG,
+  DROPOFF_TIME,
+  ID,
+  PASSENGER_NAME,
+  PICKUP_LAT,
+  PICKUP_LNG,
+  PICKUP_TIME,
+  RIDE_DISTANCE
+FROM UBERDATABASE.PUBLIC.UBERTABLE
