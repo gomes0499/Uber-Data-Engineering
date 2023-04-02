@@ -24,6 +24,7 @@ The primary objective of this project is to develop a data engineering pipeline 
 
 * Python
 * Terraform
+* Ansible
 * Postgres
 * Airbyte
 * Spark
