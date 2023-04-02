@@ -18,7 +18,7 @@ The primary objective of this project is to develop a data engineering pipeline 
 
 ### Pipeline Diagram
 
-![alt text](https://github.com/makima0499/7.Data-Engineer/blob/main/7.DataPipeline.png)
+![alt text](https://github.com/makima0499/Data-Engineer-Uber-K8S/blob/dev/7.DataPipeline.png)
 
 ### Tools
 
