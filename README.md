@@ -1,4 +1,4 @@
-# Data-Engineer - Uber - Study CaseS
+# Data-Engineer - Uber - Study Case
 
 ## Uber
 
